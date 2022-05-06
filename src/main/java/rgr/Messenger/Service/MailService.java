@@ -22,11 +22,11 @@ public class MailService {
     }
 
     public void sendGreetingMessage(User u) {
-        send(u.getEmail(), "Система тестирования: успешная регистрация", "Здравствуйте, " + u.getUsername() + "! Вы успешно зарегистрировались в системе тестирования. Для активации учетной записи перейдите по ссылке http://localhost:8080/activate/" + u.getActivationCode());
+        send(u.getEmail(), "Мессенджер: успешная регистрация", "Здравствуйте, " + u.getUsername() + "! Вы успешно зарегистрировались в мессенджере. Для активации учетной записи перейдите по ссылке http://localhost:8080/activate/" + u.getActivationCode());
     }
 
     public void sendRecoverMessage(User u) {
-        send(u.getEmail(), "Система тестирования: сменя пароля", "Здравствуйте! Для смены пароля проследуйте по ссылке: http://localhost:8080/recoverPassword/" + u.getActivationCode());
+        send(u.getEmail(), "Мессенджер: сменя пароля", "Здравствуйте! Для смены пароля проследуйте по ссылке: http://localhost:8080/recoverPassword/" + u.getActivationCode());
     }
 
 }
