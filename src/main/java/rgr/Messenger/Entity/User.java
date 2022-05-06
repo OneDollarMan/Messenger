@@ -49,6 +49,9 @@ public class User implements UserDetails {
         return username;
     }
 
+    public Long getId() {
+        return id;
+    }
     public String getEmail() {
         return email;
     }
@@ -84,4 +87,5 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return isActivated;
     }
+
 }

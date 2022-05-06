@@ -1,3 +1,4 @@
 <#import "parts/common.ftlh" as c>
 <@c.page>
-</@c.page
+    <p>Hello</p>
+</@c.page>
