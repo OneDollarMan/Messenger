@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import rgr.Messenger.Service.UserService;
@@ -23,7 +24,7 @@ public class UserController {
     public String registerUser(@RequestParam String username, @RequestParam String email, @RequestParam String password, Model model) {
         if(username != null && email != null && password != null) {
             if(userService.registerUser(username, email, password)) {
-                model.addAttribute("message", "Вы успешно зарегистрировались! Для продолжения активируйте учетную запись с помощю ссылки, отправленной на вашу почту.");
+                model.addAttribute("message", "Вы успешно зарегистрировались! Для продолжения активируйте учетную запись с помощью ссылки, отправленной на вашу почту.");
                 return "login";
             } else {
                 return "register";
@@ -31,5 +32,15 @@ public class UserController {
         } else {
             return "register";
         }
+    }
+
+    @GetMapping("/activate/{activationCode}")
+    public String activateUser(Model model, @PathVariable String activationCode) {
+        if(userService.activateUser(activationCode)) {
+            model.addAttribute("message", "Пользователь активирован");
+        } else {
+            model.addAttribute("message", "Код активации не найден");
+        }
+        return "login";
     }
 }
