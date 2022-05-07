@@ -25,6 +25,10 @@ public class User implements UserDetails {
     private String activationCode;
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
+    @OneToMany(fetch = FetchType.EAGER)
+    private Set<Dialog> createdDialogs;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Dialog> membershipDialogs;
 
     public User() {
         this.username = "username";
@@ -39,6 +43,8 @@ public class User implements UserDetails {
         this.activationCode = activationCode;
         this.roles = new HashSet<>();
         this.roles.add(r);
+        this.createdDialogs = new HashSet<>();
+        this.membershipDialogs = new HashSet<>();
     }
 
     @Override
@@ -105,6 +111,30 @@ public class User implements UserDetails {
 
     public void addRole(Role r) {
         roles.add(r);
+    }
+
+    public Set<Dialog> getCreatedDialogs() {
+        return createdDialogs;
+    }
+
+    public void addCreatedDialogs(Dialog d) {
+        this.createdDialogs.add(d);
+    }
+
+    public void removeCreatedDialogs(Dialog d) {
+        this.createdDialogs.remove(d);
+    }
+
+    public Set<Dialog> getMembershipDialogs() {
+        return membershipDialogs;
+    }
+
+    public void addMembershipDialogs(Dialog d) {
+        this.membershipDialogs.add(d);
+    }
+
+    public void removeMembershipDialogs(Dialog d) {
+        this.membershipDialogs.remove(d);
     }
 
 }
