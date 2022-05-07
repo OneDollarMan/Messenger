@@ -14,6 +14,7 @@
             	<a href="/admin" class='header_a'>Админ-панель</a>
             </#if>
             <#if user??>
+                <a href='/dialogs'>Диалоги</a>
                 <form method='post' action='/logout'>
                     <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                 	<button class='header_a header_button'>Выйти</button>

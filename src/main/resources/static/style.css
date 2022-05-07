@@ -1,3 +1,8 @@
 header {
     display: flex;
 }
+
+.div_dialog {
+    display: flex;
+    background: lightgrey;
+}
