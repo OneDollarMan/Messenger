@@ -23,10 +23,8 @@ public class MessengerService {
 
     public void createDialog(User u) {
         Dialog d = new Dialog(u);
+        d.addUser(u);
         dr.save(d);
-        u.addCreatedDialogs(d);
-        u.addMembershipDialogs(d);
-        ur.save(u);
     }
 
     public boolean removeDialog(User u, String id) {

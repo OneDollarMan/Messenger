@@ -14,13 +14,13 @@ public class Message {
     private final Dialog dialog;
     private final String text;
 
-    Message() {
+    public Message() {
         this.author = null;
         this.dialog = null;
         this.text = "";
     }
 
-    Message(User u, Dialog d, String text) {
+    public Message(User u, Dialog d, String text) {
         this.author = u;
         this.dialog = d;
         this.text = text;

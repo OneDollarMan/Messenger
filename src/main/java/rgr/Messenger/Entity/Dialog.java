@@ -13,8 +13,8 @@ public class Dialog {
 
     @ManyToOne
     private User creator;
-    @ManyToMany(mappedBy = "membershipDialogs")
-    private final Set<User> users;
+    @ManyToMany(fetch=FetchType.EAGER, cascade = CascadeType.MERGE)
+    private Set<User> users;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private final Set<Message> messages;
@@ -25,8 +25,8 @@ public class Dialog {
     }
     public Dialog(User u) {
         this.creator = u;
+        u.addCreatedDialogs(this);
         this.users = new HashSet<>();
-        users.add(u);
         this.messages = new HashSet<>();
     }
 
@@ -43,10 +43,18 @@ public class Dialog {
     }
 
     public void addUser(User u) {
+        if(this.users.contains(u)) {
+            return;
+        }
         this.users.add(u);
+        u.addMembershipDialogs(this);
     }
 
     public void removeUser(User u) {
+        if(!this.users.contains(u)) {
+            return;
+        }
+        u.removeMembershipDialogs(this);
         this.users.remove(u);
     }
 

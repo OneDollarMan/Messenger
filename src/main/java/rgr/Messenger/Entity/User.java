@@ -27,8 +27,8 @@ public class User implements UserDetails {
     private Set<Role> roles;
     @OneToMany(fetch = FetchType.EAGER)
     private Set<Dialog> createdDialogs;
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Dialog> membershipDialogs;
+    @ManyToMany(fetch=FetchType.EAGER, mappedBy = "users", cascade = CascadeType.MERGE)
+    private Set<Dialog> dialogs;
 
     public User() {
         this.username = "username";
@@ -44,7 +44,7 @@ public class User implements UserDetails {
         this.roles = new HashSet<>();
         this.roles.add(r);
         this.createdDialogs = new HashSet<>();
-        this.membershipDialogs = new HashSet<>();
+        this.dialogs = new HashSet<>();
     }
 
     @Override
@@ -118,23 +118,37 @@ public class User implements UserDetails {
     }
 
     public void addCreatedDialogs(Dialog d) {
+        if(this.createdDialogs.contains(d)) {
+            return;
+        }
         this.createdDialogs.add(d);
     }
 
     public void removeCreatedDialogs(Dialog d) {
+        if(!this.createdDialogs.contains(d)) {
+            return;
+        }
         this.createdDialogs.remove(d);
     }
 
-    public Set<Dialog> getMembershipDialogs() {
-        return membershipDialogs;
+    public Set<Dialog> getDialogs() {
+        return dialogs;
     }
 
     public void addMembershipDialogs(Dialog d) {
-        this.membershipDialogs.add(d);
+        if(this.dialogs.contains(d)) {
+            return;
+        }
+        this.dialogs.add(d);
+        d.addUser(this);
     }
 
     public void removeMembershipDialogs(Dialog d) {
-        this.membershipDialogs.remove(d);
+        if(!this.dialogs.contains(d)) {
+            return;
+        }
+        this.dialogs.remove(d);
+        d.removeUser(this);
     }
 
 }
