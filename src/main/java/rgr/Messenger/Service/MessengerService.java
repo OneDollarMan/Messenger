@@ -19,6 +19,8 @@ public class MessengerService {
     private DialogRepository dr;
     @Autowired
     private MessageRepository mr;
+    @Autowired
+    private UserRepository ur;
 
     public void createDialog(User u) {
         Dialog d = new Dialog(u);
@@ -28,6 +30,27 @@ public class MessengerService {
 
     public Dialog getDialog(Long id) {
         return dr.findById(id).orElse(null);
+    }
+
+    public void leaveDialog(User u, Long id) {
+        Optional<Dialog> d = dr.findById(id);
+        if(d.isPresent()) {
+            Dialog dialog = d.get();
+            dialog.removeUser(u);
+            dr.save(dialog);
+        }
+    }
+
+    public void addUserToDialog(User user, String username, Long did) {
+        Optional<User> u = ur.findByUsername(username);
+        Optional<Dialog> d = dr.findById(did);
+        if(u.isPresent() && d.isPresent()) {
+            Dialog dialog = d.get();
+            if(dialog.getUsers().contains(user)) {
+                dialog.addUser(u.get());
+                dr.save(d.get());
+            }
+        }
     }
 
     public boolean removeDialog(User u, String id) {

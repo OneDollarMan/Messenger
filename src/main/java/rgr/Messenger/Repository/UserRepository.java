@@ -7,7 +7,7 @@ import rgr.Messenger.Entity.User;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
-    UserDetails findByUsername(String username);
+    Optional<User> findByUsername(String username);
     UserDetails findByEmail(String email);
     Optional<User> findByActivationCode(String activationCode);
 }
