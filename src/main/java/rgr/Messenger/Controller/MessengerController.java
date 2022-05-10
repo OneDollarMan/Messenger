@@ -4,9 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import rgr.Messenger.Entity.User;
 import rgr.Messenger.Service.MessengerService;
 
@@ -36,6 +34,19 @@ public class MessengerController {
         }
         return "redirect:/dialogs";
 
+    }
+
+    @GetMapping("{id}")
+    public String dialog(@AuthenticationPrincipal User u,  @PathVariable Long id, Model model) {
+        model.addAttribute("messages", ms.getMessagesOfDialog(id));
+        model.addAttribute("dialog", ms.getDialog(id));
+        return "dialog";
+    }
+
+    @PostMapping("/sendMessage/{id}")
+    public String sendMessage(@AuthenticationPrincipal User u,  @PathVariable Long id, @RequestParam String message) {
+        ms.sendMessage(u, id, message);
+        return "redirect:/dialogs/" + id;
     }
 
 }

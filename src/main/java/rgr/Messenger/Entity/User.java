@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import javax.validation.constraints.Size;
 import javax.validation.constraints.Email;
@@ -80,6 +81,25 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return isActivated;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this)
+            return true;
+        if (!(obj instanceof User))
+            return false;
+        User other = (User) obj;
+        return Objects.equals(this.hashCode(), other.hashCode());
+    }
+
+    @Override
+    public int hashCode() {
+        return this.username.hashCode() ;
+    }
+
+    public boolean equals(User other) {
+        return Objects.equals(this.username, other.username);
     }
 
     public Long getId() {

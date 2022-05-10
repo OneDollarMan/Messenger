@@ -1,6 +1,7 @@
 package rgr.Messenger.Entity;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class Message {
@@ -8,6 +9,8 @@ public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Temporal(TemporalType.TIMESTAMP)
+    Date date;
     @ManyToOne
     private final User author;
     @ManyToOne
@@ -24,6 +27,8 @@ public class Message {
         this.author = u;
         this.dialog = d;
         this.text = text;
+        this.date = new Date();
+        d.addMessage(this);
     }
 
     public String getText() {
@@ -33,6 +38,8 @@ public class Message {
     public Dialog getDialog() {
         return dialog;
     }
+
+    public Date getDate() { return date; }
 
     public User getAuthor() {
         return author;
