@@ -22,10 +22,14 @@ public class MessengerService {
     @Autowired
     private UserRepository ur;
 
-    public void createDialog(User u) {
-        Dialog d = new Dialog(u);
-        d.addUser(u);
-        dr.save(d);
+    public void createDialog(User u, Long id) {
+        Optional<User> secondUser = ur.findById(id);
+        if(secondUser.isPresent()) {
+            Dialog d = new Dialog(u);
+            d.addUser(u);
+            d.addUser(secondUser.get());
+            dr.save(d);
+        }
     }
 
     public Dialog getDialog(Long id) {

@@ -7,23 +7,28 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import rgr.Messenger.Entity.User;
 import rgr.Messenger.Service.MessengerService;
+import rgr.Messenger.Service.UserService;
 
 @Controller
 @RequestMapping("/dialogs")
 public class MessengerController {
 
     @Autowired
-    MessengerService ms;
+    private MessengerService ms;
+
+    @Autowired
+    private UserService us;
 
     @GetMapping
     public String dialogs(@AuthenticationPrincipal User u, Model model) {
         model.addAttribute("dialogs", ms.getDialogsOfUser(u));
+        model.addAttribute("friends", us.getFriends(u));
         return "dialogs";
     }
 
-    @GetMapping("/create")
-    public String dialogsCreate(@AuthenticationPrincipal User u, Model model) {
-        ms.createDialog(u);
+    @PostMapping("/create")
+    public String dialogsCreate(@AuthenticationPrincipal User u, Model model, @RequestParam Long id) {
+        ms.createDialog(u, id);
         return "redirect:/dialogs";
     }
 

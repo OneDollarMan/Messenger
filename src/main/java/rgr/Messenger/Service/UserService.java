@@ -1,6 +1,7 @@
 package rgr.Messenger.Service;
 
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.EntityManager;
@@ -132,4 +133,12 @@ public class UserService implements UserDetailsService {
         return false;
     }
 
+    public Set<User> getFriends(User u) {
+        return u.getFriends();
+    }
+
+    public void sendFriendRequest(User u, String username) {
+        Optional<User> user = userRepository.findByUsername(username);
+        user.ifPresent(u::addFriend);
+    }
 }
