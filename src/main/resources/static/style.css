@@ -1,8 +1,62 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    background: lightgrey;
+}
+
 header {
+    background: yellowgreen;
+}
+
+ul {
+    margin: 0;
+    padding: 5pt 0;
     display: flex;
+}
+
+li {
+    margin: auto 5pt;
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:visited {
+    color: black;
+}
+
+a:hover {
+    background: #7ea728;
 }
 
 .div_dialog {
     display: flex;
-    background: lightgrey;
+}
+
+#content {
+    background: white;
+    display: table;
+    margin: 0 auto;
+}
+
+#dialog_create {
+    margin: 5pt 10pt;
+}
+
+#friends_content {
+}
+
+#friends_add {
+    margin: 5pt 10pt;
+}
+
+#friends_columns {
+    display: flex;
+}
+
+.friends_column {
+    margin: 10pt;
 }
