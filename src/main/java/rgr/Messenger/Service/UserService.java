@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.swing.text.html.Option;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -137,8 +138,36 @@ public class UserService implements UserDetailsService {
         return u.getFriends();
     }
 
+    public void addFriend(User u, Long id) {
+        userRepository.findById(id).ifPresent(u::addFriend);
+    }
+
+    public void removeFriend(User u, Long id) {
+        userRepository.findById(id).ifPresent(u::removeFriend);
+        userRepository.save(u);
+    }
+
     public void sendFriendRequest(User u, String username) {
-        Optional<User> user = userRepository.findByUsername(username);
-        user.ifPresent(u::addFriend);
+        userRepository.findByUsername(username).ifPresent(u::addOutFriendRequests);
+        userRepository.save(u);
+    }
+
+    public void removeFriendRequest(User u, Long id) {
+        userRepository.findById(id).ifPresent(u::removeOutFriendRequests);
+        userRepository.save(u);
+    }
+
+    public void acceptFriendRequest(User u, Long id) {
+        Optional<User> user = userRepository.findById(id);
+        if(user.isPresent()) {
+            u.removeInFriendRequests(user.get());
+            u.addFriend(user.get());
+            userRepository.save(u);
+        }
+    }
+
+    public void declineFriendRequest(User u, Long id) {
+        userRepository.findById(id).ifPresent(u::removeInFriendRequests);
+        userRepository.save(u);
     }
 }
