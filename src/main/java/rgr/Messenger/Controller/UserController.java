@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import rgr.Messenger.Entity.User;
 import rgr.Messenger.Service.UserService;
 
+import java.util.Optional;
+
 @Controller
 
 public class UserController {
@@ -24,9 +26,9 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@RequestParam String username, @RequestParam String email, @RequestParam String password, Model model) {
+    public String registerUser(@RequestParam String username, @RequestParam String firstName, @RequestParam String lastName, @RequestParam String email, @RequestParam String password, Model model) {
         if(username != null && email != null && password != null) {
-            if(userService.registerUser(username, email, password)) {
+            if(userService.registerUser(username, email, firstName, lastName, password)) {
                 model.addAttribute("message", "Вы успешно зарегистрировались! Для продолжения активируйте учетную запись с помощью ссылки, отправленной на вашу почту.");
                 return "redirect:/login";
             } else {
@@ -50,6 +52,17 @@ public class UserController {
     @GetMapping("/profile")
     public String profile(@AuthenticationPrincipal User u) {
         return "profile";
+    }
+
+    @GetMapping("/profile/{id}")
+    public String profileUser(@AuthenticationPrincipal User u, @PathVariable Long id, Model model) {
+        Optional<User> user = userService.findUserById(id);
+        if(user.isPresent()) {
+            model.addAttribute("u", user.get());
+            return "profile";
+        } else {
+            return "redirect:/profile";
+        }
     }
 
 }

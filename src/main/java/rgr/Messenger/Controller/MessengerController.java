@@ -5,9 +5,12 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import rgr.Messenger.Entity.Dialog;
 import rgr.Messenger.Entity.User;
 import rgr.Messenger.Service.MessengerService;
 import rgr.Messenger.Service.UserService;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/dialogs")
@@ -28,8 +31,8 @@ public class MessengerController {
 
     @PostMapping("/create")
     public String dialogsCreate(@AuthenticationPrincipal User u, Model model, @RequestParam Long id) {
-        ms.createDialog(u, id);
-        return "redirect:/dialogs";
+        //Long did = ms.createDialog(u, id);
+        return "redirect:/dialogs/";
     }
 
     @GetMapping("/rm/{id}")
@@ -43,8 +46,10 @@ public class MessengerController {
 
     @GetMapping("{id}")
     public String dialog(@AuthenticationPrincipal User u,  @PathVariable Long id, Model model) {
-        model.addAttribute("messages", ms.getMessagesOfDialog(id));
-        model.addAttribute("dialog", ms.getDialog(id));
+        Optional<Dialog> d = ms.getDialog(u, id);
+        Dialog dialog = d.orElseGet(() -> ms.createDialog(u, id));
+        model.addAttribute("messages", dialog.getMessages());
+        model.addAttribute("dialog", dialog);
         return "dialog";
     }
 
