@@ -13,14 +13,19 @@
                 <h3>Друзья</h3>
                 <#list c.user.friends as f>
                     <div class="friends_cell">
-                        ${f.username}
-                        <a href="/friends/removeFriend/${f.id}">X</a>
+                        <div class="friends_cell_main">
+                            <a href="/profile/${f.id}">${f.firstName} ${f.lastName}</a>
+                            <a href="/dialogs/${f.id}">Написать сообщение</a>
+                        </div>
+                        <div class="friends_cell_func_div">
+                            <a href="/friends/removeFriend/${f.id}">X</a>
+                        </div>
                     </div>
                 <#else>
                     Друзей нет
                 </#list>
             </div>
-            <div class="friends_column">
+            <div class="request_column">
                 <h3>Входящие заявки</h3>
                 <#list c.user.inFriendRequests as f>
                     <div class="friends_cell">
@@ -31,8 +36,7 @@
                 <#else>
                     Входящих заявок нет
                 </#list>
-            </div>
-            <div class="friends_column">
+
                 <h3>Исходящие заявки</h3>
                 <#list c.user.outFriendRequests as f>
                     <div class="friends_cell">

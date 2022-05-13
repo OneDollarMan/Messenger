@@ -4,12 +4,13 @@
         <#if friends?has_content>
             <form method="post" action="/dialogs/create">
                 <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                <select>
+                <select name="id">
+                    <option selected disabled>Выберите друга</option>
                     <#list friends as f>
-                        <option value="${f.id}">${f.username}</option>
+                        <option name="id" value="${f.id}">${f.username}</option>
                     </#list>
                 </select>
-                <input type="submit">
+                <input type="submit" value="Начать диалог">
             </form>
         <#else>
             Для создания диалога добавьте друзей!

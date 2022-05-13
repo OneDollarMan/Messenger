@@ -32,8 +32,18 @@ a:hover {
     background: #7ea728;
 }
 
+h3 {
+    margin: 0;
+    padding: 0 0 10pt;
+    text-align: center;
+    border-bottom: 1px solid lightgrey;
+}
+
 .div_dialog {
     display: flex;
+    margin: 5pt 10pt;
+    border-bottom: 1px solid grey;
+    padding: 5pt 10pt;
 }
 
 #content {
@@ -58,5 +68,29 @@ a:hover {
 }
 
 .friends_column {
-    margin: 10pt;
+}
+
+.friends_cell {
+    display: flex;
+    padding: 5pt 10pt;
+    border-bottom: 1px solid lightgrey;
+}
+
+.friends_cell:hover {
+    background: lightgrey;
+}
+
+.friends_cell_main {
+    display: flex;
+    flex-direction: column;
+}
+
+.friends_cell_func_div {
+    padding-left: 10pt;
+}
+
+.request_column {
+    padding: 0pt 10pt 0pt;
+    margin: 10pt 0pt 10pt;
+    border-left: 1px solid lightgrey;
 }
