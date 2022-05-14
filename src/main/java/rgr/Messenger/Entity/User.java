@@ -210,7 +210,7 @@ public class User implements UserDetails {
     }
 
     public void addInFriendRequests(User u) {
-        if(this.inFriendRequests.contains(u)) {
+        if(this.inFriendRequests.contains(u) || this.friends.contains(u) || this.outFriendRequests.contains(u)) {
             return;
         }
         this.inFriendRequests.add(u);
@@ -230,7 +230,7 @@ public class User implements UserDetails {
     }
 
     public void addOutFriendRequests(User u) {
-        if(this.outFriendRequests.contains(u)) {
+        if(this.outFriendRequests.contains(u) || this.inFriendRequests.contains(u) || this.friends.contains(u)) {
             return;
         }
         this.outFriendRequests.add(u);
