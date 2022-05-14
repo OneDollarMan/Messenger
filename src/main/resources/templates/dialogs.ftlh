@@ -18,9 +18,14 @@
     </div>
     <#list dialogs as d>
         <div class='div_dialog'>
-            <a href='/dialogs/${d.id}'>${d.id}</a>
+            <#if d.creator != c.user>
+                <#assign u = d.creator>
+            <#else>
+                <#assign u = d.secondUser>
+            </#if>
+            <a href='/dialogs/${u.id}'>${u.firstName} ${u.lastName}</a>
             <a href="/dialogs/leave/${d.id}">Выйти</a>
-            <#if d.creator.id == c.userId>
+            <#if d.creator == c.user>
                 <a href='/dialogs/rm/${d.id}'>Удалить</a>
             </#if>
         </div>
