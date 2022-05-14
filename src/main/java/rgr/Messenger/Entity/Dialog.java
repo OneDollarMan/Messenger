@@ -11,24 +11,31 @@ public class Dialog {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private String title;
     @ManyToOne
     private User creator;
-    @ManyToMany(fetch=FetchType.EAGER, cascade = CascadeType.MERGE)
-    private Set<User> users;
+    @ManyToOne
+    private User secondUser;
 
     @OneToMany(fetch = FetchType.EAGER)
     @OrderBy("date")
     private Set<Message> messages;
 
+    @ManyToMany(fetch= FetchType.EAGER, cascade = CascadeType.MERGE)
+    private Set<User> users;
+
+    private boolean isRoom;
+
     public Dialog() {
-        this.users = new HashSet<>();
         this.messages = new HashSet<>();
     }
+
     public Dialog(User u) {
+        this.isRoom = false;
         this.creator = u;
         u.addCreatedDialogs(this);
-        this.users = new HashSet<>();
         this.messages = new HashSet<>();
+        this.users = new HashSet<>();
     }
 
     public Set<Message> getMessages() {
@@ -50,6 +57,22 @@ public class Dialog {
         this.messages.clear();
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public String getTitle() { return this.title; }
+
+    public void setTitle(String title) { this.title = title; }
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public User getSecondUser() { return secondUser; }
+
+    public void setSecondUser(User u) { this.secondUser = u; }
+
     public Set<User> getUsers() {
         return users;
     }
@@ -70,11 +93,11 @@ public class Dialog {
         u.removeMembershipDialogs(this);
     }
 
-    public Long getId() {
-        return id;
+    public boolean isRoom() {
+        return isRoom;
     }
 
-    public User getCreator() {
-        return creator;
+    public void setRoom(boolean room) {
+        isRoom = room;
     }
 }

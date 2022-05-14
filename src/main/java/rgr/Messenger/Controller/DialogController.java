@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/dialogs")
-public class MessengerController {
+public class DialogController {
 
     @Autowired
     private MessengerService ms;
@@ -46,17 +46,21 @@ public class MessengerController {
 
     @GetMapping("{id}")
     public String dialog(@AuthenticationPrincipal User u,  @PathVariable Long id, Model model) {
-        Optional<Dialog> d = ms.getDialog(u, id);
-        Dialog dialog = d.orElseGet(() -> ms.createDialog(u, id));
-        model.addAttribute("messages", dialog.getMessages());
-        model.addAttribute("dialog", dialog);
-        return "dialog";
+        if(!u.getId().equals(id)) {
+            Dialog d = ms.getDialog(u, id);
+            if(d != null) {
+                model.addAttribute("messages", d.getMessages());
+                model.addAttribute("dialog", d);
+                return "dialog";
+            }
+        }
+        return "redirect:/dialogs";
     }
 
     @PostMapping("/sendMessage/{id}")
     public String sendMessage(@AuthenticationPrincipal User u,  @PathVariable Long id, @RequestParam String message) {
         ms.sendMessage(u, id, message);
-        return "redirect:/dialogs/" + id;
+        return "redirect:/dialogs/";
     }
 
     @GetMapping("/leave/{id}")

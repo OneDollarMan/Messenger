@@ -23,27 +23,28 @@ public class MessengerService {
     @Autowired
     private UserRepository ur;
 
-    public Dialog createDialog(User u, Long id) {
+    private Dialog createDialog(User u, Long id) {
         Optional<User> secondUser = ur.findById(id);
         if(secondUser.isPresent()) {
             Dialog d = new Dialog(u);
             d.addUser(u);
             d.addUser(secondUser.get());
+            d.setSecondUser(secondUser.get());
             dr.save(d);
             return d;
         }
         return null;
     }
 
-    public Optional<Dialog> getDialog(User u, Long id) {
+    public Dialog getDialog(User u, Long id) {
         Optional<User> user = ur.findById(id);
         if(user.isPresent()) {
             Set<User> s = new HashSet<>();
             s.add(u);
             s.add(user.get());
-            return dr.findByUsersIn(s);
+            return dr.findByUsersIn(s).orElseGet(() -> createDialog(u, id));
         }
-        return dr.findById(id);
+        return null;
     }
 
     public void leaveDialog(User u, Long id) {
@@ -103,5 +104,9 @@ public class MessengerService {
                 mr.save(m);
             }
         }
+    }
+
+    public Set<Dialog> getAllRooms() {
+        return mr.findAllByIsRoom(true);
     }
 }
