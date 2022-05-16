@@ -7,5 +7,5 @@ import rgr.Messenger.Entity.Message;
 import java.util.Set;
 
 public interface MessageRepository extends JpaRepository<Message, Long> {
-    Set<Dialog> findAllByIsRoom(boolean b);
+
 }
