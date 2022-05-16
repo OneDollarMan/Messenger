@@ -28,7 +28,7 @@ public class UserController {
     @PostMapping("/register")
     public String registerUser(@RequestParam String username, @RequestParam String firstName, @RequestParam String lastName, @RequestParam String email, @RequestParam String password, Model model) {
         if(username != null && email != null && password != null) {
-            if(userService.registerUser(username, email, firstName, lastName, password)) {
+            if(userService.registerUser(username, firstName, lastName, email, password)) {
                 model.addAttribute("message", "Вы успешно зарегистрировались! Для продолжения активируйте учетную запись с помощью ссылки, отправленной на вашу почту.");
                 return "redirect:/login";
             } else {
