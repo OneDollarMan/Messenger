@@ -1,11 +1,13 @@
 package rgr.Messenger.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import rgr.Messenger.Entity.Dialog;
+import rgr.Messenger.Entity.Message;
 import rgr.Messenger.Entity.User;
 import rgr.Messenger.Service.MessengerService;
 import rgr.Messenger.Service.UserService;
@@ -57,10 +59,9 @@ public class DialogController {
         return "redirect:/dialogs";
     }
 
-    @PostMapping("/sendMessage/{id}")
-    public String sendMessage(@AuthenticationPrincipal User u,  @PathVariable Long id, @RequestParam String message) {
-        ms.sendMessage(u, id, message);
-        return "redirect:/dialogs/";
+    @MessageMapping("/sendMessage")
+    public void sendMessage(@AuthenticationPrincipal User u, Message m) {
+        ms.saveMessage(m);
     }
 
     @GetMapping("/leave/{id}")

@@ -54,6 +54,9 @@
 		<div id="content">
 			<#nested>
 		</div>
+	<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+	<script src="stomp.js"></script>
+	<script src="/script.js"></script>
 	</body>
 </html>
 </#macro>

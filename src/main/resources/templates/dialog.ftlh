@@ -14,7 +14,7 @@
             ${u.username}
         </#list>
     </div>
-    <form method="post" action="/dialogs/sendMessage/${dialog.id}">
+    <form id="sendMessageForm" method="post" action="/dialogs/sendMessage/${dialog.id}" onsubmit="sendMessage();return false">
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
         <input type="text" placeholder="Сообщение" name="message">
         <input type="submit">

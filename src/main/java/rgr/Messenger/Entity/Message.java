@@ -12,19 +12,23 @@ public class Message {
     @Temporal(TemporalType.TIMESTAMP)
     Date date;
     @ManyToOne
-    private final User author;
+    private final User sender;
+    @ManyToOne
+    private final User receiver;
     @ManyToOne
     private final Dialog dialog;
     private final String text;
 
     public Message() {
-        this.author = null;
+        this.sender = null;
+        this.receiver = null;
         this.dialog = null;
         this.text = "";
     }
 
-    public Message(User u, Dialog d, String text) {
-        this.author = u;
+    public Message(User s, User r, Dialog d, String text) {
+        this.sender = s;
+        this.receiver = r;
         this.dialog = d;
         this.text = text;
         this.date = new Date();
@@ -41,7 +45,11 @@ public class Message {
 
     public Date getDate() { return date; }
 
-    public User getAuthor() {
-        return author;
+    public User getSender() {
+        return sender;
+    }
+
+    public User getReceiver() {
+        return receiver;
     }
 }

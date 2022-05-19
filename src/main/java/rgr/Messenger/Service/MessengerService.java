@@ -99,11 +99,16 @@ public class MessengerService {
         if(d.isPresent()) {
             Dialog dialog = d.get();
             if(dialog.getUsers().contains(u)) {
-                Message m = new Message(u, dialog, message);
+                //TODO message receiver
+                Message m = new Message(u, u, dialog, message);
                 dialog.addMessage(m);
                 mr.save(m);
             }
         }
+    }
+
+    public void saveMessage(Message m) {
+        //TODO saving
     }
 
     public Set<Dialog> getAllRooms() {
