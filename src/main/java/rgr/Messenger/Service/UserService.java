@@ -192,4 +192,14 @@ public class UserService implements UserDetailsService {
             us.save(u);
         }
     }
+
+    public void changeFirstName(User u, String firstName) {
+        u.setFirstName(firstName);
+        us.save(u);
+    }
+
+    public void changeLastName(User u, String lastName) {
+        u.setLastName(lastName);
+        us.save(u);
+    }
 }

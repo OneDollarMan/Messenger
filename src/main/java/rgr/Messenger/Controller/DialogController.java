@@ -5,6 +5,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import rgr.Messenger.Entity.Dialog;
 import rgr.Messenger.Entity.User;
 import rgr.Messenger.Service.MessengerService;
@@ -31,21 +32,20 @@ public class DialogController {
 
     @PostMapping("/create")
     public String dialogsCreate(@AuthenticationPrincipal User u, Model model, @RequestParam Long id) {
-        //Long did = ms.createDialog(u, id);
-        return "redirect:/dialogs/";
+        return "redirect:/dialogs/" + id;
     }
 
     @GetMapping("/rm/{id}")
-    public String dialogsRemove(@AuthenticationPrincipal User u, @PathVariable String id, Model m) {
+    public String dialogsRemove(@AuthenticationPrincipal User u, @PathVariable String id, RedirectAttributes ra) {
         if (!ms.removeDialog(u, id)) {
-            m.addAttribute("message", "Ошибка");
+            ra.addAttribute("message", "Ошибка доступа");
         }
         return "redirect:/dialogs";
 
     }
 
     @GetMapping("{id}")
-    public String dialog(@AuthenticationPrincipal User u,  @PathVariable Long id, Model model) {
+    public String dialog(@AuthenticationPrincipal User u,  @PathVariable Long id, Model model, RedirectAttributes ra) {
         if(!u.getId().equals(id)) {
             Dialog d = ms.getDialog(u, id);
             if(d != null) {
@@ -54,6 +54,7 @@ public class DialogController {
                 return "dialog";
             }
         }
+        ra.addFlashAttribute("message", "Вы не можете писать самому себе");
         return "redirect:/dialogs";
     }
 

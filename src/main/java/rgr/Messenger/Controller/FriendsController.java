@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import rgr.Messenger.Entity.User;
 import rgr.Messenger.Service.UserService;
 
@@ -19,10 +20,12 @@ public class FriendsController {
         return "friends";
     }
 
-    @PostMapping("/sendFriendRequest")
-    public String sendFriendRequest(@AuthenticationPrincipal User u, @RequestParam String username) {
+    @GetMapping("/sendFriendRequest")
+    public String sendFriendRequest(@AuthenticationPrincipal User u, @RequestParam String username, RedirectAttributes ra) {
         if(!u.getUsername().equals(username)) {
             us.sendFriendRequest(u, username);
+        } else {
+            ra.addFlashAttribute("message", "Вы не можете добавить в друзья самого себя");
         }
         return "redirect:/friends";
     }
