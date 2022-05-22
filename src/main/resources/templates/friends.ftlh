@@ -2,7 +2,7 @@
 <@c.page>
     <div id="friends_content">
         <div id="friends_add">
-            <form method="post" action="/friends/sendFriendRequest">
+            <form method="get" action="/friends/sendFriendRequest">
                 <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                 <input type="text" name="username" placeholder="Имя друга">
                 <input type="submit" value="Добавить">

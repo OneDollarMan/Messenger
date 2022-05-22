@@ -17,6 +17,7 @@ ul {
 li {
     margin: auto 5pt;
     list-style-type: none;
+    display: flex;
 }
 
 a {
@@ -93,4 +94,16 @@ h3 {
     padding: 0pt 10pt 0pt;
     margin: 10pt 0pt 10pt;
     border-left: 1px solid lightgrey;
+}
+
+#profile_ul {
+    line-height: 20pt;
+    flex-direction: column;
+}
+
+.profile_label {
+    width: 100pt;
+    border-right: 1px solid lightgrey;
+    margin-right: 5pt;
+    padding-right: 5pt;
 }
