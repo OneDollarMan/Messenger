@@ -40,7 +40,14 @@ public class MessengerService {
             Set<User> s = new HashSet<>();
             s.add(u);
             s.add(user.get());
-            return dr.findByUsersIn(s).orElseGet(() -> createDialog(u, id));
+            Optional<Dialog> d = dr.findByUsersIn(s);
+            if(d.isPresent()) {
+                Dialog dg = d.get();
+                dg.addUser(u);
+                dr.save(dg);
+                return dg;
+            }
+            return createDialog(u, id);
         }
         return null;
     }

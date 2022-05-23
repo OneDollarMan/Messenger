@@ -181,6 +181,11 @@ h1 {
     border-left: 1px solid lightgrey;
 }
 
-.dialog_ul {
+#dialog_ul {
     flex-direction: column;
+    border-bottom: 1px solid lightgrey;
+}
+
+#dialog_control_actions {
+    padding: 5pt;
 }

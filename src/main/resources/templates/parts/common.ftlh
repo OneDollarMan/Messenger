@@ -54,7 +54,6 @@
 		<div id="content">
 			<#nested>
 		</div>
-		<script src="/script.js"></script>
 	</body>
 </html>
 </#macro>
