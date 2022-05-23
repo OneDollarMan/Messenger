@@ -28,10 +28,18 @@
     </div>
 
     <div id="dialog_control">
+        <ul class='dialog_ul'>
         Пользователи:
         <#list dialog.users as u>
-            <a href='/profile/${u.id}'>${u.firstName}</a>
+            <li>
+                <a href='/profile/${u.id}'>${u.firstName}</a>
+            </li>
         </#list>
+        </ul>
+        <a href="/dialogs/leave/${dialog.id}">Выйти</a>
+        <#if dialog.creator == c.user>
+            <a href='/dialogs/rm/${dialog.id}'>Удалить</a>
+        </#if>
     </div>
 </div>
 </@c.page>

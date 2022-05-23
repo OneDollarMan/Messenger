@@ -1,4 +1,4 @@
 <#import "parts/common.ftlh" as c>
 <@c.page>
-    <p>${lang.index}</p>
+    <p>Hello</p>
 </@c.page>

@@ -24,10 +24,9 @@
                 <#assign u = d.secondUser>
             </#if>
             <a href='/dialogs/${u.id}'>${u.firstName} ${u.lastName}</a>
-            <a href="/dialogs/leave/${d.id}">Выйти</a>
-            <#if d.creator == c.user>
-                <a href='/dialogs/rm/${d.id}'>Удалить</a>
-            </#if>
+            <div class='div_dialog_exit'>
+                <a href="/dialogs/leave/${d.id}">X</a>
+            </div>
         </div>
         <#else>
             Диалогов нет!

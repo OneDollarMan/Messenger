@@ -49,6 +49,11 @@ h1 {
     margin: 5pt 10pt;
     border-bottom: 1px solid grey;
     padding: 5pt 10pt;
+    justify-content: space-between;
+}
+
+.div_dialog_exit {
+    right: 0;
 }
 
 #content {
@@ -139,7 +144,9 @@ h1 {
     width: 500pt;
     max-height: 400pt;
     overflow: auto;
-    bottom: 0;
+    display: flex;
+    flex-direction: column-reverse;
+    margin-bottom: 30pt;
 }
 
 #messages_div_form {
@@ -172,4 +179,8 @@ h1 {
     margin-left: 10pt;
     padding-left: 10pt;
     border-left: 1px solid lightgrey;
+}
+
+.dialog_ul {
+    flex-direction: column;
 }
