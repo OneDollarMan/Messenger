@@ -33,11 +33,15 @@ a:hover {
     background: #7ea728;
 }
 
-h3 {
+h3, h1 {
     margin: 0;
     padding: 0 0 10pt;
     text-align: center;
     border-bottom: 1px solid lightgrey;
+}
+
+h1 {
+    padding-top: 10pt;
 }
 
 .div_dialog {
@@ -50,7 +54,7 @@ h3 {
 #content {
     background: white;
     display: table;
-    margin: 0 auto;
+    margin: 10pt auto;
 }
 
 #dialog_create {
@@ -61,7 +65,8 @@ h3 {
 }
 
 #friends_add {
-    margin: 5pt 10pt;
+    padding: 5pt 10pt;
+    border-bottom: 1px solid lightgrey;
 }
 
 #friends_columns {
@@ -69,6 +74,7 @@ h3 {
 }
 
 .friends_column {
+    margin: 10pt 0pt 10pt;
 }
 
 .friends_cell {
@@ -96,14 +102,29 @@ h3 {
     border-left: 1px solid lightgrey;
 }
 
+.request_cell {
+    margin-bottom: 10pt;
+    border-bottom: 1px solid lightgrey;
+}
+
 #profile_ul {
     line-height: 20pt;
     flex-direction: column;
 }
 
 .profile_label {
-    width: 100pt;
+    width: 150pt;
     border-right: 1px solid lightgrey;
     margin-right: 5pt;
     padding-right: 5pt;
+}
+
+#form_row {
+    display: flex;
+    flex-direction: column;
+    padding: 20pt;
+}
+
+.input_row {
+    margin-bottom: 10pt;
 }

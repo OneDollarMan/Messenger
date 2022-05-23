@@ -26,26 +26,30 @@
                 </#list>
             </div>
             <div class="request_column">
-                <h3>Входящие заявки</h3>
-                <#list c.user.inFriendRequests as f>
-                    <div class="friends_cell">
-                        ${f.username}
-                        <a href="/friends/acceptFriendRequest/${f.id}">V</a>
-                        <a href="/friends/declineFriendRequest/${f.id}">X</a>
-                    </div>
-                <#else>
-                    Входящих заявок нет
-                </#list>
+                <div class="request_cell">
+                    <h3>Входящие заявки</h3>
+                    <#list c.user.inFriendRequests as f>
+                        <div class="friends_cell">
+                            ${f.username}
+                            <a href="/friends/acceptFriendRequest/${f.id}">V</a>
+                            <a href="/friends/declineFriendRequest/${f.id}">X</a>
+                        </div>
+                    <#else>
+                        Входящих заявок нет
+                    </#list>
+                </div>
 
-                <h3>Исходящие заявки</h3>
-                <#list c.user.outFriendRequests as f>
-                    <div class="friends_cell">
-                        ${f.username}
-                        <a href="/friends/cancelFriendRequest/${f.id}">X</a>
-                    </div>
-                <#else>
-                    Исходящих заявок нет
-                </#list>
+                <div class="request_cell">
+                    <h3>Исходящие заявки</h3>
+                    <#list c.user.outFriendRequests as f>
+                        <div class="friends_cell">
+                            ${f.username}
+                            <a href="/friends/cancelFriendRequest/${f.id}">X</a>
+                        </div>
+                    <#else>
+                        Исходящих заявок нет
+                    </#list>
+                </div>
             </div>
         </div>
     </div>
