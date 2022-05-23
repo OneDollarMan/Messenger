@@ -7,11 +7,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import rgr.Messenger.Entity.Dialog;
+import rgr.Messenger.Entity.Message;
 import rgr.Messenger.Entity.User;
 import rgr.Messenger.Service.MessengerService;
 import rgr.Messenger.Service.UserService;
 
-import java.util.Optional;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/dialogs")

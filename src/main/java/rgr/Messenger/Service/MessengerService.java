@@ -9,9 +9,7 @@ import rgr.Messenger.Repository.DialogRepository;
 import rgr.Messenger.Repository.MessageRepository;
 import rgr.Messenger.Repository.UserRepository;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class MessengerService {
@@ -89,9 +87,11 @@ public class MessengerService {
         return dr.findAllByUsers(u);
     }
 
-    public Set<Message> getMessagesOfDialog(Long id) {
+    public Map<String, Message> getMessagesOfDialog(User u, Long id) {
         Optional<Dialog> d = dr.findById(id);
-        return d.map(Dialog::getMessages).orElse(null);
+        Map<String, Message> map = new HashMap<>();
+        d.ifPresent(dialog -> dialog.getMessages().forEach(el -> map.put(String.valueOf(el.getId()), el)));
+        return map;
     }
 
     public void sendMessage(User u, Long id, String message) {

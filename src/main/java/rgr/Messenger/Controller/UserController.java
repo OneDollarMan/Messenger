@@ -59,7 +59,7 @@ public class UserController {
     @GetMapping("/profile/{id}")
     public String profileUser(@AuthenticationPrincipal User u, @PathVariable Long id, Model model) {
         Optional<User> user = userService.findUserById(id);
-        if(user.isPresent()) {
+        if(user.isPresent() && !u.getId().equals(id)) {
             model.addAttribute("u", user.get());
             return "profile";
         } else {

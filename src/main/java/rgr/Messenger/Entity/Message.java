@@ -1,9 +1,12 @@
 package rgr.Messenger.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@JsonIgnoreProperties({"dialog"})
 public class Message {
 
     @Id
@@ -31,6 +34,9 @@ public class Message {
         d.addMessage(this);
     }
 
+    public Long getId() {
+        return id;
+    }
     public String getText() {
         return text;
     }
