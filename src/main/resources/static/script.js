@@ -3,7 +3,6 @@ function sendMessage(form) {
     const FD = new FormData(form);
     XHR.addEventListener("load", function(event) {
         message_input.value = ''
-        console.log(XHR.responseText)
     } );
     XHR.addEventListener("error", function( event) {
         console.log('Oops! Something went wrong.');
@@ -39,12 +38,18 @@ function parseMessages(messages) {
 }
 
 function createMessageDiv(author_id, author_firstName, date, text) {
+    date = new Date(date)
+    options = {
+      year: 'numeric', month: 'numeric', day: 'numeric',
+      hour: 'numeric', minute: 'numeric', second: 'numeric',
+      hour12: false
+    };
     let msdiv = document.createElement('div')
     msdiv.classList.add('message')
     msdiv.innerHTML = `<div class="message_inf_block">
                          <a href="/profile/${author_id}">${author_firstName}</a>
                          <div class="message_inf_date">
-                             ${date}
+                             ${date.toLocaleString('en-US', options)}
                          </div>
                      </div>
                      <div class="message_text_block">

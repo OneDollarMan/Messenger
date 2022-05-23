@@ -189,3 +189,11 @@ h1 {
 #dialog_control_actions {
     padding: 5pt;
 }
+
+#joined_rooms_div, #open_rooms_div {
+    padding: 5pt;
+}
+
+#rooms_lists_div {
+    display: flex;
+}
