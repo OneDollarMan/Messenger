@@ -143,7 +143,7 @@ public class MessengerService {
         if(d.isPresent()) {
             Dialog dg = d.get();
             if(!dg.getUsers().contains(u)) {
-                if(!dg.isDialogClosed()) {
+                if(!dg.isClosed()) {
                     addUserToDialog(dg.getUsers().iterator().next(), u.getUsername(), id);
                 } else {
                     return null;
