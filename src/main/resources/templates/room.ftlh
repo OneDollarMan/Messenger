@@ -52,6 +52,20 @@
             </details>
             <a href="/dialogs/leave/${dialog.id}">Выйти</a>
             <#if dialog.creator == c.user>
+                <form method="post" action="/rooms/setClose/${dialog.id}">
+                    <#if dialog.isClosed??>
+                        <input type="radio" id="opened" name="isClosed" value="False">
+                        <label for="opened">Открытая</label>
+                        <input type="radio" id="closed" name="isClosed" value="True" checked>
+                        <label for="closed">Закрытая</label>
+                    <#else>
+                        <input type="radio" id="opened" name="isClosed" value="False" checked>
+                        <label for="opened">Открытая</label>
+                        <input type="radio" id="closed" name="isClosed" value="True">
+                        <label for="closed">Закрытая</label>
+                    </#if>
+                    <input type="submit" value="Сохранить">
+                </form>
                 <a href='/dialogs/rm/${dialog.id}'>Удалить</a>
             </#if>
         </div>

@@ -1,6 +1,7 @@
 package rgr.Messenger.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import rgr.Messenger.Entity.Dialog;
 import rgr.Messenger.Entity.Message;
@@ -129,15 +130,38 @@ public class MessengerService {
         dr.save(d);
     }
 
-    public Set<Dialog> getAllRooms() {
-        return dr.findAllByIsRoom(true);
+    public Set<Dialog> getOpenedRooms() {
+        return dr.findAllByIsRoomAndIsClosed(true, false);
     }
 
     public Set<Dialog> getRoomsOfUser(User u) {
         return dr.findAllByIsRoomAndUsers(true, u);
     }
 
-    public Dialog getRoom(Long id) {
-        return dr.findById(id).orElseGet(null);
+    public Dialog getRoom(User u, Long id) {
+        Optional<Dialog> d = dr.findById(id);
+        if(d.isPresent()) {
+            Dialog dg = d.get();
+            if(!dg.getUsers().contains(u)) {
+                if(!dg.isDialogClosed()) {
+                    addUserToDialog(dg.getUsers().iterator().next(), u.getUsername(), id);
+                } else {
+                    return null;
+                }
+            }
+            return dg;
+        }
+        return null;
+    }
+
+    public void setRoomClosed(User u, Long id, String isClosed) {
+        Optional<Dialog> d = dr.findById(id);
+        if(d.isPresent()) {
+            Dialog dg = d.get();
+            if(dg.getCreator().equals(u)) {
+                dg.setClosed(isClosed.equals("True"));
+                dr.save(dg);
+            }
+        }
     }
 }
