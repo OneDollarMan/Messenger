@@ -12,14 +12,18 @@
             <div id='joined_rooms_div'>
                 <h3>Ваши комнаты</h3>
                 <#list joined_rooms as r>
-                    <a href='/rooms/${r.id}'>${r.title}</a>
+                    <div class='div_dialog'>
+                        <a href='/rooms/${r.id}'>${r.title}</a>
+                    </div>
                 </#list>
             </div>
 
             <div id='open_rooms_div'>
                 <h3>Открытые комнаты</h3>
                 <#list open_rooms as r>
-                    <a href='/rooms/${r.id}'>${r.title}</a>
+                    <div class='div_dialog'>
+                        <a href='/rooms/${r.id}'>${r.title}</a>
+                    </div>
                 </#list>
             </div>
         </div>
