@@ -23,18 +23,25 @@ function getMessages(id) {
     xhr.open("GET", "/dialogs/getMessages/" + id);
     xhr.setRequestHeader("Accept", "application/json");
     xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.onload = () => parseMessages(xhr.responseText);
+    xhr.addEventListener("load", function(event) {
+        if(xhr.responseText != null) {
+            parseMessages(xhr.responseText)
+        }
+    } );
     xhr.send();
 }
 
 function parseMessages(messages) {
-    let msgs = JSON.parse(messages)
-    var arr = Object.keys(msgs).map(key => [key, msgs[key]]).sort((a, b) => b[0]-a[0])
-    messages_div.innerHTML = ''
-    for(let el in arr) {
-        let msg = createMessageDiv(arr[el][1]['author']['id'], arr[el][1]['author']['firstName'], arr[el][1]['date'], arr[el][1]['text'])
-        messages_div.appendChild(msg)
+    if(messages != null) {
+        let msgs = JSON.parse(messages)
+        var arr = Object.keys(msgs).map(key => [key, msgs[key]]).sort((a, b) => b[0]-a[0])
+        messages_div.innerHTML = ''
+        for(let el in arr) {
+            let msg = createMessageDiv(arr[el][1]['author']['id'], arr[el][1]['author']['firstName'], arr[el][1]['date'], arr[el][1]['text'])
+            messages_div.appendChild(msg)
+        }
     }
+
 }
 
 function createMessageDiv(author_id, author_firstName, date, text) {

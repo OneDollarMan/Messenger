@@ -17,17 +17,19 @@
         </#if>
     </div>
     <#list dialogs as d>
-        <div class='div_dialog'>
-            <#if d.creator != c.user>
-                <#assign u = d.creator>
-            <#else>
-                <#assign u = d.secondUser>
-            </#if>
-            <a href='/dialogs/${u.id}'>${u.firstName} ${u.lastName}</a>
-            <div class='div_dialog_exit'>
-                <a href="/dialogs/leave/${d.id}">X</a>
+        <#if d.secondUser??>
+            <div class='div_dialog'>
+                <#if d.creator != c.user>
+                    <#assign u = d.creator>
+                <#else>
+                    <#assign u = d.secondUser>
+                </#if>
+                <a href='/dialogs/${u.id}'>${u.firstName} ${u.lastName}</a>
+                <div class='div_dialog_exit'>
+                    <a href="/dialogs/leave/${d.id}">X</a>
+                </div>
             </div>
-        </div>
+        </#if>
         <#else>
             Диалогов нет!
     </#list>

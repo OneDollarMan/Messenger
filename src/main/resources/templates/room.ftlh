@@ -1,14 +1,6 @@
 <#import "parts/common.ftlh" as c>
 <@c.page>
-<div id='dialog'>
-    <details>
-        <summary>Добавить пользователя</summary>
-        <form method="post" action="/dialogs/invite/${dialog.id}">
-            <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-            <input type="text" placeholder="Имя пользователя" name="username">
-            <input type="submit">
-        </form>
-    </details>
+<div id='dialog' value='${dialog.id}'>
     <div id='messages_div_form'>
         <form id="sendMessageForm" method="post" action="/dialogs/sendMessage/${dialog.id}" onsubmit="sendMessage(sendMessageForm); return false">
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
@@ -45,6 +37,19 @@
         </#list>
         </ul>
         <div id='dialog_control_actions'>
+            <details>
+                <summary>Добавить пользователя</summary>
+                <form method="post" action="/rooms/invite/${dialog.id}">
+                    <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                    <select name="username">
+                        <option selected disabled>Выберите друга</option>
+                        <#list c.user.friends as f>
+                            <option name="username" value="${f.username}">${f.firstName} ${f.lastName}</option>
+                        </#list>
+                    </select>
+                    <input type="submit" value="Добавить">
+                </form>
+            </details>
             <a href="/dialogs/leave/${dialog.id}">Выйти</a>
             <#if dialog.creator == c.user>
                 <a href='/dialogs/rm/${dialog.id}'>Удалить</a>
