@@ -71,9 +71,4 @@ public class DialogController {
         return "redirect:/dialogs";
     }
 
-    @PostMapping("/invite/{id}")
-    public String inviteUser(@AuthenticationPrincipal User u,  @PathVariable Long id, @RequestParam String username) {
-        ms.addUserToDialog(u, username, id);
-        return "redirect:/dialogs/" + id;
-    }
 }

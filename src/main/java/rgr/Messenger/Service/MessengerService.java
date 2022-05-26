@@ -37,12 +37,15 @@ public class MessengerService {
     public Dialog getDialog(User u, Long id) {
         Optional<User> user = ur.findById(id);
         if(user.isPresent()) {
-            Set<User> s = new HashSet<>();
-            s.add(u);
-            s.add(user.get());
-            Optional<Dialog> d = dr.findByUsersIn(s);
-            if(d.isPresent()) {
-                Dialog dg = d.get();
+            Optional<Dialog> d1 = dr.findByCreatorAndSecondUser(u, user.get());
+            Optional<Dialog> d2 = dr.findByCreatorAndSecondUser(user.get(), u);
+            if(d1.isPresent()) {
+                Dialog dg = d1.get();
+                dg.addUser(u);
+                dr.save(dg);
+                return dg;
+            } else if(d2.isPresent()) {
+                Dialog dg = d2.get();
                 dg.addUser(u);
                 dr.save(dg);
                 return dg;

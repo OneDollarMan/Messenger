@@ -10,7 +10,7 @@ import java.util.Set;
 public interface DialogRepository extends JpaRepository<Dialog, Long> {
     Set<Dialog> findAllByUsers(User u);
     Optional<Dialog> findByCreatorAndId(User u, Long id);
-    Optional<Dialog> findByUsersIn(Set<User> users);
+    Optional<Dialog> findByCreatorAndSecondUser(User creator, User secondUser);
     Set<Dialog> findAllByIsRoom(boolean b);
     Set<Dialog> findAllByIsRoomAndUsers(boolean b, User u);
 }
