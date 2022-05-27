@@ -4,8 +4,8 @@
     <div id='messages_div_form'>
         <form id="sendMessageForm" method="post" action="/dialogs/sendMessage/${dialog.id}" onsubmit="sendMessage(sendMessageForm); return false">
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-            <input id='message_input' type="textField" placeholder="Сообщение" name="message">
-            <input type="submit" value="Отправить">
+            <input id='message_input' type="textField" placeholder="<@spring.message code="room.mess"/>" name="message">
+            <input type="submit" value="<@spring.message code="room.send"/>">
         </form>
     </div>
     <div id="messages_div">
@@ -22,14 +22,14 @@
                  </div>
             </div>
         <#else>
-            Сообщений нет!
+            <@spring.message code="room.noMess"/>
         </#list>
 
     </div>
 
     <div id="dialog_control">
         <ul id='dialog_ul'>
-        Пользователи:
+            <@spring.message code="room.users"/>:
         <#list dialog.users as u>
             <li>
                 <a href='/profile/${u.id}'>${u.firstName}</a>
@@ -38,36 +38,36 @@
         </ul>
         <div id='dialog_control_actions'>
             <details>
-                <summary>Добавить пользователя</summary>
+                <summary><@spring.message code="room.addUser"/></summary>
                 <form method="post" action="/rooms/invite/${dialog.id}">
                     <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                     <select name="username">
-                        <option selected disabled>Выберите друга</option>
+                        <option selected disabled><@spring.message code="room.selectFriend"/></option>
                         <#list c.user.friends as f>
                             <option name="username" value="${f.username}">${f.firstName} ${f.lastName}</option>
                         </#list>
                     </select>
-                    <input type="submit" value="Добавить">
+                    <input type="submit" value="<@spring.message code="room.add"/>">
                 </form>
             </details>
-            <a href="/dialogs/leave/${dialog.id}">Выйти</a>
+            <a href="/dialogs/leave/${dialog.id}"><@spring.message code="room.exit"/></a>
             <#if dialog.creator == c.user>
                 <form method="post" action="/rooms/setClose/${dialog.id}">
                     <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                     <#if dialog.closed>
                         <input type="radio" id="opened" name="isClosed" value="False">
-                        <label for="opened">Открытая</label>
+                        <label for="opened"><@spring.message code="room.opened"/></label>
                         <input type="radio" id="closed" name="isClosed" value="True" checked>
-                        <label for="closed">Закрытая</label>
+                        <label for="closed"><@spring.message code="room.closed"/></label>
                     <#else>
                         <input type="radio" id="opened" name="isClosed" value="False" checked>
-                        <label for="opened">Открытая</label>
+                        <label for="opened"><@spring.message code="room.opened"/></label>
                         <input type="radio" id="closed" name="isClosed" value="True">
-                        <label for="closed">Закрытая</label>
+                        <label for="closed"><@spring.message code="room.closed"/></label>
                     </#if>
-                    <input type="submit" value="Сохранить">
+                    <input type="submit" value="<@spring.message code="room.save"/>">
                 </form>
-                <a href='/dialogs/rm/${dialog.id}'>Удалить</a>
+                <a href='/dialogs/rm/${dialog.id}'><@spring.message code="room.remove"/></a>
             </#if>
         </div>
     </div>

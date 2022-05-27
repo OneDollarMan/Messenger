@@ -1,4 +1,4 @@
 <#import "parts/common.ftlh" as c>
 <@c.page>
-    <p>hello</p>
+    <p><@spring.message code="index"/></p>
 </@c.page>
