@@ -13,8 +13,4 @@ public class MainController {
         return "index";
     }
 
-    @RequestMapping("/locale")
-    public String locale() {
-        return "locale";
-    }
 }
